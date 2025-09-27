@@ -1,10 +1,7 @@
 services:
   - type: web
-    name: springboot-demo
+    name: auth-api
     env: java
-    plan: free
-    buildCommand: ./mvnw clean package -DskipTests
+    buildCommand: mvn clean package -DskipTests
     startCommand: java -jar target/demo-0.0.1-SNAPSHOT.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
+    plan: free
