@@ -20,6 +20,10 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
+    // JWT Expiration time (in milliseconds) from application.properties
+    @Value("${jwt.expiration}")
+    private long jwtExpiration;
+
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
@@ -29,7 +33,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour expiration
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration)) // Use configured expiration
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

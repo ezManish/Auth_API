@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class AuthController {
 
     // POST /api/login: Receives {username, password} -> Returns JWT Token
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public String login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
     }
 }

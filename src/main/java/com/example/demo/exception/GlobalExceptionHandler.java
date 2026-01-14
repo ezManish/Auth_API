@@ -23,4 +23,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleGlobalException(Exception ex) {
         return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    // Handles Validation Errors (e.g., empty username) -> Returns 400 Bad Request
+    @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationExceptions(org.springframework.web.bind.MethodArgumentNotValidException ex) {
+        StringBuilder errors = new StringBuilder();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            errors.append(error.getDefaultMessage()).append("\n");
+        });
+        return new ResponseEntity<>(errors.toString(), HttpStatus.BAD_REQUEST);
+    }
 }
