@@ -17,7 +17,7 @@ public class DemoApplication {
     CommandLineRunner init(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             if (userRepository.findByUsername("student1") == null) {
-                app_user user = new app_user();
+                AppUser user = new AppUser();
                 user.setUsername("student1");
                 user.setPassword(passwordEncoder.encode("pass123")); // ✅ encoded password
                 userRepository.save(user);
