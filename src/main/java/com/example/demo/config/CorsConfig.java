@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Global CORS (Cross-Origin Resource Sharing) Configuration.
+ * This ensures that other websites (local or production) can talk to this API.
+ */
 @Configuration
 public class CorsConfig {
 
@@ -13,8 +17,9 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Allow all endpoints
-                        .allowedOrigins("*") // Allow ALL domains (for testing). For prod, use "https://project-a.com"
+                // "/**" means apply to ALL endpoints in the application
+                registry.addMapping("/**")
+                        .allowedOrigins("*") //Allows ALL domains. Good for dev. In Prod, replace with "https://your-domain.com"
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*");
             }
